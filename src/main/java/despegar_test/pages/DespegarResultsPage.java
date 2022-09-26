@@ -14,6 +14,9 @@ public class DespegarResultsPage {
 	WebDriver driver = null;
 	WebDriverWait wait = null;
 	
+	@FindBy(xpath="//span[text()='Ritz Hotel']")
+	WebElement title;
+	
 	@FindBy(css=".cluster-description.cluster-description-top")
 	WebElement fstResult;
 	
@@ -22,11 +25,9 @@ public class DespegarResultsPage {
 		PageFactory.initElements(this.driver, this);
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
 	}
-	
-	public DespegarHotelPage clickfstResult() {
-		this.wait.until(ExpectedConditions.elementToBeClickable(fstResult));
-		fstResult.click();
-		return new DespegarHotelPage(this.driver);
+
+	public String getTitle() {
+		wait.until(ExpectedConditions.visibilityOf(title));
+		return title.getText();
 	}
-	
 }

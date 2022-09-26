@@ -74,11 +74,15 @@ public class DespegarHomePage {
 		alojamientos.click();
 	}
 	
-	public void inputDestinos (String text) {
+	public void inputDestinos (String text) throws Exception{
 		wait.until(ExpectedConditions.visibilityOf(inputDestino));
+		
 		this.inputDestino.click();
+		
 		this.inputDestino.clear();
+		
 		this.inputDestino.sendKeys(text);
+		Thread.sleep(1000);
 		wait.until(ExpectedConditions.elementToBeClickable(listaDestino));
 		this.listaDestino.click();
 	}
@@ -86,11 +90,13 @@ public class DespegarHomePage {
 	public void inputFechas() {
 		this.calendar.click();
 		wait.until(ExpectedConditions.visibilityOf(calendar));
+		wait.until(ExpectedConditions.visibilityOf(primerFecha));
 		this.primerFecha.click();
+		wait.until(ExpectedConditions.visibilityOf(segundaFecha));
 		this.segundaFecha.click();
 		this.clickAplicar.click();
 	}
-	
+
 	public void inputHabitaciones() {
 		this.clickBed.click();
 		wait.until(ExpectedConditions.visibilityOf(rooms));
