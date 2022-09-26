@@ -1,10 +1,10 @@
-package despegar_test.test;
+package despegar_test.driver;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class DriverDespegar {
+public class DriverFactory {
 	
 	public static WebDriver createDriver(String driverOption) {
 			
