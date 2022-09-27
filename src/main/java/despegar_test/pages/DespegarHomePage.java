@@ -87,12 +87,15 @@ public class DespegarHomePage {
 		this.listaDestino.click();
 	}
 	
-	public void inputFechas() {
+	public void inputFechas() throws Exception {
 		this.calendar.click();
 		wait.until(ExpectedConditions.visibilityOf(calendar));
 		wait.until(ExpectedConditions.visibilityOf(primerFecha));
+		wait.until(ExpectedConditions.elementToBeClickable(primerFecha));
 		this.primerFecha.click();
 		wait.until(ExpectedConditions.visibilityOf(segundaFecha));
+		wait.until(ExpectedConditions.elementToBeClickable(segundaFecha));
+		Thread.sleep(100);
 		this.segundaFecha.click();
 		this.clickAplicar.click();
 	}
