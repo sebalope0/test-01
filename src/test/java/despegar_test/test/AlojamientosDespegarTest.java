@@ -12,11 +12,11 @@ import despegar_test.pages.DespegarHomePage;
 import despegar_test.pages.DespegarResultsPage;
 
 public class AlojamientosDespegarTest {
-	
+
 	WebDriver driver = null;
 	DespegarHomePage homePage = null;
 	DespegarHomePage cbaHomePage = null;
-	
+
   @BeforeMethod
   public void setup(ITestContext context) {
 	  String navegadorTestSuite = context.getCurrentXmlTest().getParameter("Navegador");
@@ -25,12 +25,12 @@ public class AlojamientosDespegarTest {
 	  DriverFactory.goToMainPage(driver);
 	  homePage = new DespegarHomePage(this.driver);
   }//end BeforeMethod
-  
+ 
   @DataProvider(name = "Alojamientos")
   public Object[][] dpMethod() {
 	  return new Object[][]{{"Men"},{"Cord"}};
   }
-  
+ 
   @Test(dataProvider = "Alojamientos", description = "Verificar que las busquedas de alojamiento funcionan")
   public void VerificarAlojamientoDespegar(String provincia) throws Exception  {
 	  homePage.clickalojamientos();
@@ -46,5 +46,5 @@ public class AlojamientosDespegarTest {
   public void endSetup() {
 	  driver.close();
   }//end AfterMethod
-  
+ 
 }//end class AlojamientosDespegarTest

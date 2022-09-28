@@ -19,7 +19,7 @@ public class DespegarHomePage {
 			              "Actividades", "Escapadas", "Autos", "Disney", "Asistencias",
 			              "Traslados"};  
 	int i = 0;
-	
+
 	@FindBy(css = "ul.header-list-products > li > a")
 	List<WebElement> listaLinks;
 	
