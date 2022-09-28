@@ -15,6 +15,7 @@ public class AlojamientosDespegarTest {
 	
 	WebDriver driver = null;
 	DespegarHomePage homePage = null;
+	DespegarHomePage cbaHomePage = null;
 	
   @BeforeMethod
   public void setup(ITestContext context) {
@@ -25,17 +26,22 @@ public class AlojamientosDespegarTest {
 	  homePage = new DespegarHomePage(this.driver);
   }//end BeforeMethod
   
-  @Test(description = "Verificar que las busquedas de alojamiento funcionan")
-  public void VerificarAlojamientoDespegar() throws Exception  {
+  @DataProvider(name = "Alojamientos")
+  public Object[][] dpMethod() {
+	  return new Object[][]{{"Men"},{"Cord"}};
+  }
+  
+  @Test(dataProvider = "Alojamientos", description = "Verificar que las busquedas de alojamiento funcionan")
+  public void VerificarAlojamientoDespegar(String provincia) throws Exception  {
 	  homePage.clickalojamientos();
-	  homePage.inputDestinos("Mendoza");
+	  homePage.inputDestinos(provincia);
 	  homePage.inputFechas();
 	  homePage.inputHabitaciones();
 	  DespegarResultsPage resultsPage = homePage.clickBtn();
 	  Assert.assertTrue(resultsPage.getTitle().contains("Hotel"), "No se encontro 'Hotel'");
-	  System.out.println("El nombre del alojamiento " + resultsPage.getTitle());
+	  System.out.println("El Primer Hotel encontrado es: " + resultsPage.getTitle() + " en " + provincia);
   }//end Test
-  
+
   @AfterMethod
   public void endSetup() {
 	  driver.close();

@@ -2,6 +2,7 @@ package despegar_test.pages;
 
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,16 +11,24 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class DespegarHomePage {
+	
+	String[] lstALinks = {"Alojamientos", "Vuelos", "Paquetes", "Ofertas", "Alquileres",
+			              "Actividades", "Escapadas", "Autos", "Disney", "Asistencias",
+			              "Traslados"};  
+	int i = 0;
+	
+	@FindBy(css = "ul.header-list-products > li > a")
+	List<WebElement> listaLinks;
 	
 	WebDriver driver = null;
 	WebDriverWait wait = null;
 	
 	@FindBy(css="a.HOTELS")
 	WebElement alojamientos;
-	
-	//para pasar a la resultpage
+
 	@FindBy(css="#searchbox-sbox-box-hotels .sbox5-box-places-ovr.sbox-places-container--3kBK7  "
 			   + "input.input-tag")
 	WebElement inputDestino;
@@ -69,6 +78,13 @@ public class DespegarHomePage {
 		PageFactory.initElements(driver, this);
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
 	}
+	
+	public void assertLinks() {
+		for (WebElement link : listaLinks) {
+			Assert.assertTrue(link.getText().contains(lstALinks[i]), "Error en el elemento " + i);
+			i ++;
+		}
+	}
 
 	public void clickalojamientos() {
 		alojamientos.click();
@@ -79,7 +95,7 @@ public class DespegarHomePage {
 		
 		this.inputDestino.click();
 		
-		this.inputDestino.clear();
+		//this.inputDestino.clear();
 		
 		this.inputDestino.sendKeys(text);
 		Thread.sleep(1000);
