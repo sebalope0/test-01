@@ -3,6 +3,12 @@
 <suite name="SuiteChrome">
 <parameter name="Navegador" value="CHROME"></parameter>
   <test thread-count="5" name="Test">
+  <groups>
+  	<run>
+  	 <include name="group1" />
+  	 <exclude name="group2" />
+  	</run>
+  </groups>
     <classes>
       <class name="despegar_test.test.AlojamientosDespegarTest"/>
     </classes>

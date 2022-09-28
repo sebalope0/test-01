@@ -17,7 +17,7 @@ public class AlojamientosDespegarTest {
 	DespegarHomePage homePage = null;
 	DespegarHomePage cbaHomePage = null;
 
-  @BeforeMethod
+  @BeforeMethod(alwaysRun=true)
   public void setup(ITestContext context) {
 	  String navegadorTestSuite = context.getCurrentXmlTest().getParameter("Navegador");
       String navegador = navegadorTestSuite != null ? navegadorTestSuite : "CHROME";
@@ -28,10 +28,15 @@ public class AlojamientosDespegarTest {
  
   @DataProvider(name = "Alojamientos")
   public Object[][] dpMethod() {
-	  return new Object[][]{{"Men"},{"Cord"}};
+	  return new Object[][]{{"Mendoza, Mendoza, Argentina"},{"Córdoba, Córdoba, Argentina"}};
+  }
+  
+  @DataProvider(name = "Fechas")
+  public Object[][] dpFechas() {
+	  return new Object[][]{{"bari"},{"juj"}};
   }
  
-  @Test(dataProvider = "Alojamientos", description = "Verificar que las busquedas de alojamiento funcionan")
+  @Test(groups = {"group1"}, dataProvider = "Alojamientos", description = "Verificar que las busquedas de alojamiento funcionan")
   public void VerificarAlojamientoDespegar(String provincia) throws Exception  {
 	  homePage.assertLinks();
 	  homePage.clickalojamientos();
@@ -39,13 +44,26 @@ public class AlojamientosDespegarTest {
 	  homePage.inputFechas();
 	  homePage.inputHabitaciones();
 	  DespegarResultsPage resultsPage = homePage.clickBtn();
-	  Assert.assertTrue(resultsPage.getTitle().contains("Hotel"), "No se encontro 'Hotel'");
-	  System.out.println("El Primer Hotel encontrado es: " + resultsPage.getTitle() + " en " + provincia);
+	  Assert.assertTrue(resultsPage.getTitle().contains("Hotel"), "No se encontró 'Hotel' en " + provincia);
+	  System.out.println("El Primer Hotel encontrado en " + provincia + " es: " + resultsPage.getTitle());
+  }//end Test
+  
+  @Test(groups = {"group2"}, dataProvider = "Fechas",  description = "Verificar que las busquedas de alojamiento funcionan")
+  public void VerificarAlojamientoDespegar2(String provincia) throws Exception  {
+	  homePage.clickalojamientos();
+	  homePage.inputDestinos(provincia);
+	  homePage.inputFechas();
+	  homePage.inputHabitaciones();
+	  DespegarResultsPage resultsPage = homePage.clickBtn();
+	  Assert.assertTrue(resultsPage.getTitle().contains("Hotel"), "No se encontró 'Hotel' en " + provincia);
+	  System.out.println("El Primer Hotel encontrado en " + provincia + " es: " + resultsPage.getTitle());
   }//end Test
 
-  @AfterMethod
+  @AfterMethod(alwaysRun=true)
   public void endSetup() {
-	  driver.close();
+	  if (driver != null) {
+		  driver.close();
+	}
   }//end AfterMethod
  
 }//end class AlojamientosDespegarTest

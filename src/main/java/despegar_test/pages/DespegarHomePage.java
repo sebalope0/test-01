@@ -22,7 +22,7 @@ public class DespegarHomePage {
 
 	@FindBy(css = "ul.header-list-products > li > a")
 	List<WebElement> listaLinks;
-	
+
 	WebDriver driver = null;
 	WebDriverWait wait = null;
 	
@@ -41,11 +41,11 @@ public class DespegarHomePage {
 	WebElement calendar;
 	
 	@FindBy(xpath="//*[@class='sbox5-floating-tooltip sbox5-floating-tooltip-opened']"
-			    + "//*[@data-month='2022-09']//*[text()=29]")
+			    + "//*[@data-month='2022-10']//*[text()=29]")
 	WebElement primerFecha;
 	
 	@FindBy(xpath="//*[@class='sbox5-floating-tooltip sbox5-floating-tooltip-opened']"
-			    + "//*[@data-month='2022-09']//*[text()=30]")
+			    + "//*[@data-month='2022-10']//*[text()=30]")
 	WebElement segundaFecha;
 	
 	@FindBy(css=".sbox5-floating-tooltip-opened .sbox5-3-btn .btn-text")
@@ -72,16 +72,17 @@ public class DespegarHomePage {
 	
 	@FindBy(css=".sbox5-box-content > button")
 	WebElement clickBtnBuscar;
+
 	
 	public DespegarHomePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
 	}
-	
 	public void assertLinks() {
 		for (WebElement link : listaLinks) {
 			Assert.assertTrue(link.getText().contains(lstALinks[i]), "Error en el elemento " + i);
+			System.out.println(link.getText() + " -> " + lstALinks[i]);
 			i ++;
 		}
 	}
@@ -90,13 +91,9 @@ public class DespegarHomePage {
 		alojamientos.click();
 	}
 	
-	public void inputDestinos (String text) throws Exception{
-		wait.until(ExpectedConditions.visibilityOf(inputDestino));
-		
+	public void inputDestinos(String text) throws Exception {
+        wait.until(ExpectedConditions.visibilityOf(inputDestino));
 		this.inputDestino.click();
-		
-		//this.inputDestino.clear();
-		
 		this.inputDestino.sendKeys(text);
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.elementToBeClickable(listaDestino));
