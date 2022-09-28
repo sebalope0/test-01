@@ -33,6 +33,7 @@ public class AlojamientosDespegarTest {
  
   @Test(dataProvider = "Alojamientos", description = "Verificar que las busquedas de alojamiento funcionan")
   public void VerificarAlojamientoDespegar(String provincia) throws Exception  {
+	  homePage.assertLinks();
 	  homePage.clickalojamientos();
 	  homePage.inputDestinos(provincia);
 	  homePage.inputFechas();
